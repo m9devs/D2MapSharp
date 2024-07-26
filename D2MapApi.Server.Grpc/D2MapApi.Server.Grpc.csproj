@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PublishAot>true</PublishAot>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <RootNamespace>D2MapApi.Server.Grpc</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <WarningLevel>2</WarningLevel>
+        <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Protobuf Include="..\D2MapApi.Server.Grpc.Protos\API\V1\connectivity.proto">
+            <ProtoRoot>..\D2MapApi.Server.Grpc.Protos</ProtoRoot>
+            <Link>Protos\connectivity.proto</Link>
+            <GrpcServices>Server</GrpcServices>
+        </Protobuf>
+        <Protobuf Include="..\D2MapApi.Server.Grpc.Protos\API\V1\map.proto">
+            <ProtoRoot>..\D2MapApi.Server.Grpc.Protos</ProtoRoot>
+            <Link>Protos\map.proto</Link>
+            <GrpcServices>Server</GrpcServices>
+        </Protobuf>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Grpc.AspNetCore" Version="2.63.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+      <PackageReference Include="Serilog" Version="4.0.0" />
+      <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+      <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+      <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
+      <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore">
+        <HintPath>..\..\..\..\..\..\..\Program Files (x86)\dotnet\shared\Microsoft.AspNetCore.App\8.0.0\Microsoft.AspNetCore.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\D2MapApi.Core\D2MapApi.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="appsettings.Development.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Enumerations\" />
+    </ItemGroup>
+
+</Project>

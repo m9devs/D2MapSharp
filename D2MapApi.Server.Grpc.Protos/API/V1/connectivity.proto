@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package d2MapApi.server.grpc.protos.api.v1.connectivity;
+
+option csharp_namespace="D2MapApi.Server.Grpc.Protos.Api.V1.Connectivity";
+
+service Connectivity{
+  rpc CheckServerConnection (G_ConnectionCheckRequest) returns (G_ConnectionCheckResponse);
+}
+
+message G_ConnectionCheckRequest{}
+
+message G_ConnectionCheckResponse{}

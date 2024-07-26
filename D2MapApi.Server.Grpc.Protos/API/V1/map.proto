@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package d2MapApi.server.grpc.protos.api.v1.map;
+
+option csharp_namespace = "D2MapApi.Server.Grpc.Protos.Api.V1.Map";
+
+service Map{
+  rpc GetMapData (G_MapDataRequest) returns (G_MapDataResponse);
+}
+
+message G_MapDataRequest{
+  uint32 Seed = 1;
+  G_Difficulty Difficulty = 2;
+  int32 Area = 3;
+
+  enum G_Difficulty{
+    Normal = 0;
+    Nightmare = 1;
+    Hell = 2;
+  }
+}
+
+message G_MapDataResponse{
+  oneof MapResponse{
+    G_MapDataSuccessResponse Success = 1;
+    G_MapDataFailureResponse Failure = 2;
+  }
+}
+
+message G_MapDataSuccessResponse {
+  G_D2AreaMap D2AreaMap = 1;
+}
+
+message G_D2AreaMap{
+  int32 Area = 1;
+  G_Point2D LevelOrigin = 2;
+  int32 Width = 3;
+  int32 Height = 4;
+  G_CollisionData CollisionData = 5;
+  repeated G_Npc Npcs = 6;
+  repeated G_Object Objects = 7;
+  repeated G_AccessibleArea AccessibleAreas = 8;
+
+  int32 TombArea = 9;
+
+  message G_Point2D{
+    uint32 XPosition = 1;
+    uint32 YPosition = 2;
+  }
+
+  message G_CollisionData{
+    int32 Width = 1;
+    int32 Height = 2;
+    repeated G_CollisionRow CollisionRows = 3;
+  }
+
+  message G_CollisionRow{
+    repeated int32 Blocks = 1;
+  }
+
+  message G_Npc{
+    int32 NpcId = 1;
+    G_Point2D NpcPosition = 2;
+  }
+
+  message G_Object{
+    int32 ObjectId = 1;
+    int32 Width = 3;
+    int32 Height = 4;
+    bool HasCollision = 5;
+    G_Point2D Position = 6;
+  }
+  
+  message G_AccessibleArea{
+    int32 AreaId = 1;
+    G_Point2D ExitPosition = 2;
+  }
+}
+
+message G_MapDataFailureResponse {
+  string ErrorMessage = 1;
+}
+
+message G_NoTombAreaMessage {}
